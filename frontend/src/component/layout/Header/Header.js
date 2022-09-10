@@ -1,43 +1,36 @@
-import React from "react";
-import { ReactNavbar } from "overlay-navbar";
-import logo from "../../../images/logo.png";
+import {React, useState} from 'react'
+import '../Header/Header.css'
+import { Link } from 'react-router-dom'
 
-const options = {
-  burgerColor: "green",
-  burgerColorHover: "#eb4034",
-  logo,
-  logoWidth: "20vmax",
-  navColor1: "white",
-  logoHoverSize: "10px",
-  logoHoverColor: "#eb4034",
-  link1Text: "Home",
-  link2Text: "Products",
-  link3Text: "Login",
-  link4Text: "About",
-  link1Url: "/",
-  link2Url: "/products",
-  link3Url: "/login",
-  link4Url: "/about",
-  link1Size: "1.3vmax",
-  link1Color: "rgba(35, 35, 35,0.8)",
-  nav1justifyContent: "flex-end",
-  nav2justifyContent: "flex-end",
-  nav3justifyContent: "flex-start",
-  nav4justifyContent: "flex-start",
-  link1ColorHover: "#eb4034",
-  link1Margin: "1vmax",
-  profileIconUrl: "/login",
-  profileIconColor: "rgba(35, 35, 35,0.8)",
-  searchIconColor: "rgba(35, 35, 35,0.8)",
-  cartIconColor: "rgba(35, 35, 35,0.8)",
-  profileIconColorHover: "#eb4034",
-  searchIconColorHover: "#eb4034",
-  cartIconColorHover: "#eb4034",
-  cartIconMargin: "1vmax",
-};
+function Header(history) {
+  
+    const [keyword, setKeyword] = useState("");
+  
+    const searchSubmitHandler = (e) => {
+      e.preventDefault();
+      if (keyword.trim()) {
+        history.push(`/products/${keyword}`);
+      } else {
+        history.push("/products");
+      }
+    };
+  return (
+       <div className="header">
+  <Link to="/" className="logo">E Store</Link>
+  <div className="header-right">
+    <Link to='/'>Home</Link>
+    <Link to='/products'>Products</Link>
+    <Link to='/login'>Login</Link>
+    <Link to='/about'>About</Link>
+    <div className='topnav'>
+      <form>
+    <input onSubmit={searchSubmitHandler} type="text" placeholder="Search.." onChange={(e) => setKeyword(e.target.value)}></input>
+    </form>
+    </div>
+  </div>
+</div>
 
-const Header = () => {
-  return <ReactNavbar {...options} />;
-};
+  )
+}
 
-export default Header;
+export default Header
